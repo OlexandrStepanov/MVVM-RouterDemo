@@ -16,6 +16,7 @@ class RepoSearchViewController: UIViewController, MVVMViewController {
     @IBOutlet private weak var searchTextfield: UITextField!
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var resultlLabel: UILabel!
+    @IBOutlet private weak var loadingWheel: UIActivityIndicatorView!
     
     var viewModel: RepoSearchViewModelProtocol!
 
@@ -25,7 +26,7 @@ class RepoSearchViewController: UIViewController, MVVMViewController {
         //  Setup bindings
         
         searchTextfield.rx.text.bind(to: viewModel.searchText).addDisposableTo(disposeBag)
-        
+        viewModel.showLoadingWheel.asObservable().bind(to: loadingWheel.rx.isAnimating).addDisposableTo(disposeBag)
         
         viewModel.listItems.asObservable().bind(to:tableView.rx.items) { (tableView, row, element) in
             

@@ -21,8 +21,10 @@ struct RepoSearchListCellViewModel {
 
 protocol RepoSearchViewModelProtocol: MVVMViewModel {
     var searchText: PublishSubject<String?> { get }
-    var listItems: Variable<[RepoSearchListCellViewModel]> { get }
     var listIndexSelected: PublishSubject<Int> { get }
+    
+    var listItems: Variable<[RepoSearchListCellViewModel]> { get }
+    var showLoadingWheel: Variable<Bool> { get }
 }
 
 class RepoSearchViewModel: RepoSearchViewModelProtocol {
@@ -30,6 +32,7 @@ class RepoSearchViewModel: RepoSearchViewModelProtocol {
     let searchText = PublishSubject<String?>()
     let listItems = Variable<[RepoSearchListCellViewModel]>([])
     let listIndexSelected = PublishSubject<Int>()
+    let showLoadingWheel = Variable<Bool>(false)
     
     private var currentSearchResult = [RepoModel]()
     
@@ -57,9 +60,16 @@ class RepoSearchViewModel: RepoSearchViewModelProtocol {
                 return GithubServiceSearchResult.just([])
             }
             
+            self.showLoadingWheel.value = true
+            
             return self.githubService.searchRepo(with: query)
         })
+            
+        //  Listen for result of request
         .subscribe(onNext: { [weak self] repos in
+            
+            self?.showLoadingWheel.value = false
+            
             //  Store & convert response
             self?.currentSearchResult = repos
             self?.listItems.value = repos.map({ repo -> RepoSearchListCellViewModel in
@@ -67,6 +77,9 @@ class RepoSearchViewModel: RepoSearchViewModelProtocol {
             })
             
         }, onError: { [weak self] error in
+            
+            self?.showLoadingWheel.value = false
+            
             //  Just print an error and display empty result
             print("Got an error from Github: \(error)")
             self?.currentSearchResult = []
