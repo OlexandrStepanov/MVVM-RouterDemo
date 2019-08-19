@@ -7,31 +7,32 @@
 //
 
 import RxSwift
+import RxRelay
 
 
 protocol RepoDetailsViewModelProtocol: MVVMViewModel {
-    var title: Variable<String> { get }
-    var author: Variable<String> { get }
-    var url: Variable<String> { get }
-    var description: Variable<String> { get }
+    var title: BehaviorRelay<String> { get }
+    var author: BehaviorRelay<String> { get }
+    var url: BehaviorRelay<String> { get }
+    var description: BehaviorRelay<String> { get }
 }
 
 class RepoDetailsViewModel: RepoDetailsViewModelProtocol {
     
-    let title: Variable<String>
-    let author: Variable<String>
-    let url: Variable<String>
-    let description: Variable<String>
+    let title: BehaviorRelay<String>
+    let author: BehaviorRelay<String>
+    let url: BehaviorRelay<String>
+    let description: BehaviorRelay<String>
     
     let router: MVVMRouter
     
     init(with router: MVVMRouter, repo: RepoModel) {
         self.router = router
         
-        title = Variable<String>(repo.name)
-        author = Variable<String>(repo.owner)
-        url = Variable<String>(repo.url.absoluteString)
-        description = Variable<String>(repo.description)
+        title = BehaviorRelay<String>(value: repo.name)
+        author = BehaviorRelay<String>(value: repo.owner)
+        url = BehaviorRelay<String>(value: repo.url.absoluteString)
+        description = BehaviorRelay<String>(value: repo.description)
     }
 }
 

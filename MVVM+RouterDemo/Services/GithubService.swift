@@ -33,7 +33,7 @@ class GithubService: GithubServiceProtocol {
                     if let value = response.result.value as? UnboxableDictionary {
                         
                         if let items = value["items"] as? [UnboxableDictionary] {
-                            let repos: [RepoModel] = items.flatMap({ item in
+                            let repos: [RepoModel] = items.compactMap({ item in
                                 let repo: RepoModel? = try? unbox(dictionary: item)
                                 return repo
                             })

@@ -14,7 +14,7 @@ protocol MVVMRouter {
     
     
     /// The view controller which is used to present the current one
-    weak var baseViewController: UIViewController? { get set }
+    var baseViewController: UIViewController? { get set }
     
     
     /// This method should be used as an entry point for presenting the VC for particular router

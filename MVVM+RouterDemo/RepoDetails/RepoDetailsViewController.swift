@@ -24,10 +24,10 @@ class RepoDetailsViewController: UIViewController, MVVMViewController {
         super.viewDidLoad()
 
         //  Setup bindings
-        viewModel.title.asObservable().bind(to: titleLabel.rx.text).addDisposableTo(disposeBag)
-        viewModel.author.asObservable().bind(to: authorLabel.rx.text).addDisposableTo(disposeBag)
-        viewModel.description.asObservable().bind(to: descriptionTextView.rx.text).addDisposableTo(disposeBag)
-        viewModel.url.asObservable().bind(to: urlButton.rx.title(for: .normal)).addDisposableTo(disposeBag)
+        viewModel.title.asObservable().bind(to: titleLabel.rx.text).disposed(by: disposeBag)
+        viewModel.author.asObservable().bind(to: authorLabel.rx.text).disposed(by: disposeBag)
+        viewModel.description.asObservable().bind(to: descriptionTextView.rx.text).disposed(by: disposeBag)
+        viewModel.url.asObservable().bind(to: urlButton.rx.title(for: .normal)).disposed(by: disposeBag)
     }
 
 }

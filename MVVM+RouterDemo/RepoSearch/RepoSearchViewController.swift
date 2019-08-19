@@ -25,8 +25,8 @@ class RepoSearchViewController: UIViewController, MVVMViewController {
 
         //  Setup bindings
         
-        searchTextfield.rx.text.bind(to: viewModel.searchText).addDisposableTo(disposeBag)
-        viewModel.showLoadingWheel.asObservable().bind(to: loadingWheel.rx.isAnimating).addDisposableTo(disposeBag)
+        searchTextfield.rx.text.bind(to: viewModel.searchText).disposed(by: disposeBag)
+        viewModel.showLoadingWheel.asObservable().bind(to: loadingWheel.rx.isAnimating).disposed(by: disposeBag)
         
         viewModel.listItems.asObservable().bind(to:tableView.rx.items) { (tableView, row, element) in
             
@@ -44,14 +44,14 @@ class RepoSearchViewController: UIViewController, MVVMViewController {
             
             return cell
             
-        }.addDisposableTo(disposeBag)
+        }.disposed(by: disposeBag)
         
         
         tableView.rx.itemSelected.subscribe(onNext: { [weak self] indexPath in
             
             self?.viewModel.listIndexSelected.onNext(indexPath.row)
             
-        }).addDisposableTo(disposeBag)
+        }).disposed(by: disposeBag)
         
         viewModel.listItems.asObservable().subscribe(onNext: { [weak self] list in
             guard let `self` = self else {
@@ -64,7 +64,7 @@ class RepoSearchViewController: UIViewController, MVVMViewController {
             else {
                 self.resultlLabel.text = "No result"
             }
-        }).addDisposableTo(disposeBag)
+        }).disposed(by: disposeBag)
     }
 
 }
