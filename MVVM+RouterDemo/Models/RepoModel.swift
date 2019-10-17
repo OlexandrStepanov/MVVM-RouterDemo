@@ -6,21 +6,30 @@
 //  Copyright © 2017 OleksandrStepanov. All rights reserved.
 //
 
-import Unbox
+import Foundation
 
-
-struct RepoModel {
-    let name: String
-    let description: String
-    let owner: String
-    let url: URL
+struct RepoSearchResult: Codable {
+    let repos: [RepoModel]
+    
+    enum CodingKeys: String, CodingKey {
+        case repos = "items"
+    }
 }
 
-extension RepoModel: Unboxable {
-    init(unboxer: Unboxer) throws {
-        self.name = try unboxer.unbox(key: "name")
-        self.description = try unboxer.unbox(key: "description")
-        self.owner = try unboxer.unbox(keyPath: "owner.login")
-        self.url = try unboxer.unbox(key: "html_url")
+struct RepoModel: Codable {
+    let name: String
+    let description: String?
+    let owner: RepoOwner
+    let url: URL
+    
+    enum CodingKeys: String, CodingKey {
+        case name = "name"
+        case description = "description"
+        case owner
+        case url = "html_url"
     }
+}
+
+struct RepoOwner: Codable {
+    let login: String
 }

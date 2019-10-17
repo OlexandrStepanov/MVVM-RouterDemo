@@ -15,7 +15,7 @@ struct RepoSearchListCellViewModel {
     
     init(with repo: RepoModel) {
         title = repo.name
-        description = repo.description
+        description = repo.description ?? "[empty]"
     }
 }
 

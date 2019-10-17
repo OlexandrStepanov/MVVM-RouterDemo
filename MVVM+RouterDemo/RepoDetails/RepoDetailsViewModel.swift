@@ -30,9 +30,9 @@ class RepoDetailsViewModel: RepoDetailsViewModelProtocol {
         self.router = router
         
         title = BehaviorRelay<String>(value: repo.name)
-        author = BehaviorRelay<String>(value: repo.owner)
+        author = BehaviorRelay<String>(value: repo.owner.login)
         url = BehaviorRelay<String>(value: repo.url.absoluteString)
-        description = BehaviorRelay<String>(value: repo.description)
+        description = BehaviorRelay<String>(value: repo.description ?? "")
     }
 }
 

@@ -10,7 +10,6 @@ target 'MVVM+RouterDemo' do
 	pod 'RxCocoa'
 	pod 'RxDataSources'
 	pod 'Alamofire'
-	pod 'Unbox'
 	pod 'SwiftGen'
 
   # Pods for MVVM+RouterDemo
