@@ -49,7 +49,7 @@ class RepoDetailsViewModelTest: XCTestCase {
         
         XCTAssertEqual(viewModel.title.value, repoModel.name)
         XCTAssertEqual(viewModel.description.value, repoModel.description)
-        XCTAssertEqual(viewModel.author.value, repoModel.owner)
+        XCTAssertEqual(viewModel.author.value, repoModel.owner.login)
         XCTAssertEqual(viewModel.url.value, repoModel.url.absoluteString)
     }
     

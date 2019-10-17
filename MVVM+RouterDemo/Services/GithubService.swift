@@ -6,6 +6,7 @@
 //  Copyright © 2017 OleksandrStepanov. All rights reserved.
 //
 
+import Foundation
 import Alamofire
 import RxSwift
 

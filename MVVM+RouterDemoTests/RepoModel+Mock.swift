@@ -11,6 +11,6 @@ import Foundation
 
 extension RepoModel {
     static var testRepo: RepoModel {
-        return RepoModel(name: "Swift", description: "The Swift Programming Language", owner: "apple", url: URL(string: "https://github.com/apple/swift")!)
+        return RepoModel(name: "Swift", description: "The Swift Programming Language", owner: RepoOwner(login: "apple"), url: URL(string: "https://github.com/apple/swift")!)
     }
 }

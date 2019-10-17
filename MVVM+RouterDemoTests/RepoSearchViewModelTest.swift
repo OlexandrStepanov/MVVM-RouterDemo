@@ -53,11 +53,11 @@ class RepoSearchViewModelTest: XCTestCase {
     }
     
     func testSearch() {
-        viewModel.searchText.onNext("sw")
+        viewModel.searchText.onNext("test")
         
-        //  Wait for dearch test debounce
+        //  Wait for search test debounce
         let expectation = self.expectation(description: "searchDebounce")
-        XCTWaiter.wait(for: [expectation], timeout: 1)
+        let _ = XCTWaiter.wait(for: [expectation], timeout: 1)
         
         XCTAssertEqual(viewModel.listItems.value.count, 1)
         
@@ -68,11 +68,11 @@ class RepoSearchViewModelTest: XCTestCase {
     }
     
     func testListItemSelected() {
-        viewModel.searchText.onNext("sw")
+        viewModel.searchText.onNext("test")
         
         //  Wait for dearch test debounce
         let expectation = self.expectation(description: "searchDebounce")
-        XCTWaiter.wait(for: [expectation], timeout: 1)
+        let _ = XCTWaiter.wait(for: [expectation], timeout: 1)
         
         viewModel.listIndexSelected.onNext(0)
         
